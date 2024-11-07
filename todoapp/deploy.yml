@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: todo-app
-        image: todo-app:v1
+        image: todo-app:v1.01
         env:
         - name: DB_HOST
           value: "127.0.0.1"
