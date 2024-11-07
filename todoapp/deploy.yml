@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todolist-app
+  namespace: todo-ns
+  labels:
+    app: todoapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoapp
+  template:
+    metadata:
+      labels:
+        app: todoapp
+    spec:
+      containers:
+      - name: todo-app
+        image: todo-app:v1
+        env:
+        - name: DB_HOST
+          value: "127.0.0.1"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_PASSWORD
+          value: "dbpostgres"
+        - name: DB_USER
+          value: "postgres"
+        - name: DB_DATABASE
+          value: "todolist"
+        - name: DB_ENGINE
+          value: "django.db.backends.postgresql_psycopg2"
+        - name: DJANGO_SECRET_KEY
+          value: "django-insecure-h_b$n&-lngf(v8#u@y0d)s#!a*kf5f07lowikxi7hok^p=^chl"
+        - name: LOG_FILE
+          value: "/var/log/container/app.log"
+        ports:
+        - containerPort: 8000
